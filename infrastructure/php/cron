@@ -1,0 +1,6 @@
+# cron jobs
+#* * * * * /usr/bin/php7.1 -d mbstring.func_overload=2 -d mbstring.internal_encoding=UTF-8 -f /application/test.php > /dev/null 2>&1
+* * * * * php -d mbstring.func_overload=2 -d mbstring.internal_encoding=UTF-8 -f /application/bitrix/php_interface/cron_events.php > /dev/null 2>&1
+0 0 * * 1 php -d mbstring.func_overload=2 -d mbstring.internal_encoding=UTF-8 -f /application/local/cron/promocode_generator.php
+0 0 * * * php -d mbstring.func_overload=2 -d mbstring.internal_encoding=UTF-8 -f /application/local/cron/delete_promocodes.php
+
