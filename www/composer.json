@@ -1,0 +1,14 @@
+{
+    "name": "market/jeweler",
+    "autoload": {
+        "psr-4": {
+            "Market\\Jeweler\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "KUB"
+        }
+    ],
+    "require": {}
+}

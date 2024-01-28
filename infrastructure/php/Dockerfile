@@ -22,6 +22,7 @@ RUN apt-get update \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         mysqli \
+        pdo_mysql \
         gd \
         soap \
     && pecl install xdebug-3.1.0 \
@@ -35,10 +36,6 @@ RUN apt-get update \
 #        mcrypt \
 #        opcache \
 #        interbase \
-
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 COPY ./php-ini-overrides.ini /usr/local/etc/php/conf.d/php-ini-overrides.ini
 
-COPY ./cron /home/cron
-RUN cat /home/cron | crontab
-
-RUN usermod -u 1000 www-data
