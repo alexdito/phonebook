@@ -17,19 +17,19 @@ class UserService
     /**
      * @throws Exception
      */
-    public function registration(string $firstName, string $lastName, string $secondName): int
+    public function registration(string $fio, string $phone): int
     {
-        if ($firstName === "" || $lastName === '' || $secondName === '') {
+        if ($fio === "" || $phone === '') {
             throw new Exception("Вы не ввели ФИО полностью!");
         }
 
-        if ($this->login($firstName, $lastName, $secondName) > 0) {
+        if ($this->login($fio, $phone) > 0) {
             throw new Exception("Пользователь уже существует");
         }
 
-        $this->repository->createUser($firstName, $lastName, $secondName);
+        $this->repository->createUser($fio, $phone);
 
-        $id = $this->login($firstName, $lastName, $secondName);
+        $id = $this->login($fio, $phone);
 
         if ($id <= 0) {
             throw new Exception("Ошибка при регистрации");
@@ -41,15 +41,19 @@ class UserService
     /**
      * @throws Exception
      */
-    public function login(string $firstName, string $lastName, string $secondName): int
+    public function login(string $fio, string $phone): int
     {
-        if ($firstName === "" || $lastName === '' || $secondName === '') {
+        if ($fio === "" || $phone === '') {
             throw new Exception("Вы не ввели ФИО полностью!");
         }
 
-        $users = $this->repository->getUser($firstName, $lastName, $secondName);
+        $users = $this->repository->getUser($fio, $phone);
 
         $_SESSION['MARKET']['LOGIN'] = $users;
+
+        if ($users === false) {
+            return 0;
+        }
 
         return (int)$users['id'];
     }

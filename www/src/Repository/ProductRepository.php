@@ -13,8 +13,13 @@ class ProductRepository
         $this->connection = new Connection();
     }
 
-    public function getProductList(): array
+    public function getItemList(): array
     {
         return $this->connection->getConnection()->query("select * from products")->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getItemById(int $id): array
+    {
+        return $this->connection->getConnection()->query("select * from products where id = {$id}")->fetch(\PDO::FETCH_ASSOC);
     }
 }

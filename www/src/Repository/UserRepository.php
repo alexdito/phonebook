@@ -14,21 +14,20 @@ class UserRepository
         $this->connection = new Connection();
     }
 
-    public function createUser(string $firstName, string $lastName, string $secondName)
+    public function createUser(string $fio, string $phone)
     {
         $this->connection->getConnection()->query(
-            sprintf('insert into users (first_name, last_name, second_name) values ("%s", "%s", "%s")', $firstName, $lastName, $secondName)
+            sprintf('insert into users (fio, phone) values ("%s", "%s")', $fio, $phone)
         );
     }
 
-    public function getUser(string $firstName, string $lastName, string $secondName)
+    public function getUser(string $fio, string $phone)
     {
         return $this->connection->getConnection()->query(
             sprintf(
-                'select * from users where first_name = "%s" and last_name = "%s" and second_name = "%s"',
-                $firstName,
-                $lastName,
-                $secondName
+                'select * from users where fio = "%s" and phone = "%s"',
+                $fio,
+                $phone,
             )
         )->fetch(\PDO::FETCH_ASSOC);
     }

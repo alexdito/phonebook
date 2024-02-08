@@ -18,6 +18,7 @@ class Connection
         try {
             $this->connection = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connection->query("SET NAMES 'utf8'");
         } catch (PDOException $e) {
             echo "Connection failed: " . $e->getMessage();
         }
